@@ -23,5 +23,5 @@ order by book_code;
 
 SELECT owner, table_name, column_name
 FROM all_tab_columns
-    WHERE UPPER(column_name) = 'HOLDING_VALUE_AMT'
+    WHERE UPPER(column_name) = 'PERFORMANCE_INDEX_VAL'
     ORDER BY owner, table_name;
