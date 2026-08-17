@@ -16,7 +16,7 @@ import datetime
 SQL_PATH = r"C:\Users\mkeita9\Projects\MOK_WBG_Projects\SQL_Queries\RiskSheet"
 
 # Output folder for Excel files
-SAVE_PATH = r"C:\Users\mkeita9\Projects\MOK_WBG_Projects\Python_Scripts\RiskSheet\Output"
+SAVE_PATH = r"C:\Users\mkeita9\OneDrive - WBG\1. Work Documents\4. Projects & Initiatives\Murex_Testing_LAM_Cash\08_DR\DR4\01.Inputs\2_Summit_RiskSheets"
 
 
 # ---------------------------------------------------------------------------
@@ -53,4 +53,4 @@ RISK_DB_DSN = "ORAMRP1.worldbank.org"
 
 OFFICE_LOCATION = "MANUAL"
 
-MANUAL_DATE = datetime.date(2026, 7, 24)
+MANUAL_DATE = datetime.date(2026, 8, 14)
