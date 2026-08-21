@@ -53,4 +53,4 @@ RISK_DB_DSN = "ORAMRP1.worldbank.org"
 
 OFFICE_LOCATION = "MANUAL"
 
-MANUAL_DATE = datetime.date(2026, 8, 14)
+MANUAL_DATE = datetime.date(2026, 8, 19)
