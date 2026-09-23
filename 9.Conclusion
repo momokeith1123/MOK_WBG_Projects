@@ -1,0 +1,9 @@
+Before we close, I'd like to summarize the key next steps.
+
+As part of the UAT2 validation process, we have end-of-day data available for every business day from July 20th through August 3rd. The reconciliation process that I have presented today should ideally be performed on each of those dates to ensure that the results are consistent over time and that any discrepancies are properly understood and documented.
+Given the volume of work, I don't think one person needs to do all the dates. We can split the effort across the team. I will share this workbook and the supporting files with you as templates, so everyone can follow the same reconciliation methodology and reporting structure.
+The goal is not only to reproduce the reconciliation, but also to understand the drivers behind the differences and build confidence in the Murex reporting outputs before sign-off.
+Rui, I would particularly encourage you to leverage both this reconciliation framework and the additional guidance that Ke will be providing. The analysis performed here should give you a strong foundation for the DR3 work, especially in understanding how the underlying market values, positions, and mappings contribute to the final reporting outputs.
+
+Overall, the process is now documented, the inputs are identified, and the workbook provides a repeatable framework that can be applied consistently across all valuation dates.
+Thank you everyone for your time and participation today. I hope this session has helped clarify both the reconciliation process and the rationale behind it. Please feel free to reach out if you have any questions as you start working through the remaining dates and open items.

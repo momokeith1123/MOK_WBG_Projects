@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # CONFIGURATION
 # ─────────────────────────────────────────────
 
-BASE_OUTPUT_DIR = Path(r"C:\Users\mkeita9\Projects")
+BASE_OUTPUT_DIR = Path(r"C:\Users\mkeita9\Projects\ICE")
 
 ICE_SUBFOLDER = "14.ICE"  # Subfolder inside Inbox
 

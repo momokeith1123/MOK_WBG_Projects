@@ -53,4 +53,12 @@ RISK_DB_DSN = "ORAMRP1.worldbank.org"
 
 OFFICE_LOCATION = "MANUAL"
 
+<<<<<<< Updated upstream
 MANUAL_DATE = datetime.date(2026, 8, 19)
+=======
+<<<<<<< Updated upstream
+MANUAL_DATE = datetime.date(2026, 8, 14)
+=======
+MANUAL_DATE = datetime.date(2026, 8, 4)
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

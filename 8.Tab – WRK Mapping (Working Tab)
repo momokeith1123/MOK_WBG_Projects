@@ -1,0 +1,14 @@
+Tab – WRK Mapping (Working Tab)
+"Let's now move to the WRK Mapping tab.
+This is essentially my working tab and the core of the reconciliation workbook.
+Unlike the previous tabs, which contain source data extracted from Murex or Summit, this tab is where all the reconciliation logic is applied. It brings together the various source files and performs the calculations, mappings, validations, and analysis required to explain the differences between the two systems.
+To make the workbook easier to navigate, I have used a color-coding convention.
+
+The columns highlighted in grey, from Column A through Column R, contain the data coming from the Murex Subaccount P&L extract. These are the raw source fields that serve as the starting point of the analysis.
+The columns highlighted in blue are populated through Excel formulas. These formulas retrieve and combine information from the other tabs, including the mapping files, Summit extracts, and position-level data. This is where most of the automated reconciliation logic resides.
+The columns highlighted in orange are used for control checks, validation tests, and manual recalculations. These columns help verify the results of the reconciliation and investigate any exceptions that require additional analysis.
+
+The objective of this tab is to create a single view where we can compare the Murex and Summit data side by side and understand the drivers behind any differences.
+For example, when we identify a market value difference, this tab allows us to trace the discrepancy back to its individual components such as price, accrued interest, notional, or mapping issues. It also enables us to verify whether the difference is expected due to the new portfolio hierarchy or if it represents a genuine issue requiring further investigation.
+In practice, this is the tab where most of the analytical work takes place. The source tabs provide the data, but the WRK Mapping tab transforms that data into meaningful reconciliation results and explanations.
+So, if you think of the previous tabs as inputs, this tab is really the reconciliation engine that ties everything together and produces the outputs that support our UAT2 validation and sign-off process."

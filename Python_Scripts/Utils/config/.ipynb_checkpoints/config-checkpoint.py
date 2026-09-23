@@ -16,7 +16,11 @@ import datetime
 SQL_PATH = r"C:\Users\mkeita9\Projects\MOK_WBG_Projects\SQL_Queries\RiskSheet"
 
 # Output folder for Excel files
+<<<<<<< Updated upstream
 SAVE_PATH = r"C:\Users\mkeita9\OneDrive - WBG\1. Work Documents\4. Projects & Initiatives\Murex_Testing_LAM_Cash\08_DR\DR4\01.Inputs\2_Summit_RiskSheets"
+=======
+SAVE_PATH = r"C:\Users\mkeita9\Projects\MOK_WBG_Projects\Python_Scripts\RiskSheet\Output"
+>>>>>>> Stashed changes
 
 
 # ---------------------------------------------------------------------------
@@ -53,4 +57,8 @@ RISK_DB_DSN = "ORAMRP1.worldbank.org"
 
 OFFICE_LOCATION = "MANUAL"
 
+<<<<<<< Updated upstream
 MANUAL_DATE = datetime.date(2026, 8, 14)
+=======
+MANUAL_DATE = datetime.date(2026, 7, 28)
+>>>>>>> Stashed changes

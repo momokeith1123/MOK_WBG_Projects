@@ -1,0 +1,27 @@
+Tab 2 – Murex Subaccount P&L
+"Let's move now to the second tab, called Murex Subaccount P&L.
+This tab contains the core valuation and performance information extracted directly from Murex. It is one of the main source files used throughout the reconciliation process because it provides both the market value and the P&L measures that we ultimately want to validate.
+For each trade, the file contains:
+
+The Market Value calculated by Murex.
+The corresponding L3 and L4 classifications under the new Murex hierarchy.
+Day-to-Date (DTD) P&L.
+Month-to-Date (MTD) P&L.
+Year-to-Date (YTD) P&L.
+
+One important point to highlight is that the book structures in Summit and Murex are no longer aligned.
+Historically, there was a closer relationship between the two structures. However, under the new target operating model, Murex uses a new hierarchy based on the L3 and L4 classifications, and there is no longer a simple one-to-one relationship between a Summit book and a Murex portfolio classification.
+Because of this, we cannot simply compare results at the book level. We need to use mappings and aggregation logic to reconcile the information between the two systems and ensure that we are comparing equivalent portfolios.
+The market value contained in this file is therefore a key component of our reconciliation process. It allows us not only to reconcile positions and valuations, but also to validate the downstream reports such as:
+
+P&L Summary,
+P&L VaR,
+P&L Attribution.
+
+Now, regarding how this file is obtained, the source is again Murex.
+The navigation path is:
+Middle Office → Datamart Reporting → Execute Single Datamart Extraction → IFC Investment
+From there, we select:
+Investment PL-Summary
+This extraction corresponds to the Subaccount P&L report and provides the detailed trade-level information that feeds this tab.
+In summary, this tab serves as the primary Murex source for market value and performance metrics. It provides both the valuation figures and the portfolio classification structure that will later be reconciled against Summit and aggregated into the new Murex reporting hierarchy."

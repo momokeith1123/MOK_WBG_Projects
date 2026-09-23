@@ -1,0 +1,24 @@
+Tab 5 – Summit P&L
+"Let's now move to the Summit P&L tab.
+This tab represents the Summit side of the reconciliation and serves as our reference dataset for comparing valuations and performance measures against Murex.
+The data is obtained directly from Summit through a SQL query executed in the performance database. The query is run for a specific valuation date and returns the key measures that we need for reconciliation.
+For each position, the extract contains:
+
+Day-to-Day (DTD) P&L,
+Market Value,
+Accrued Interest,
+Outstanding Notional.
+
+These are some of the most important metrics used in the validation process because they allow us to compare both the valuation and performance calculations produced by the two systems.
+The purpose of this tab is not only to identify differences, but also to explain them.
+As I mentioned earlier, Market Value is generally driven by several underlying components, including price, accrued interest, and notional. When we observe a difference between Summit and Murex, we need to determine whether the discrepancy originates from:
+
+The position or outstanding notional,
+The accrued interest calculation,
+The security price,
+Currency conversion,
+Or another valuation methodology difference.
+
+This Summit extract provides the reference values against which the Murex results are compared.
+Because the data is extracted directly from Summit for a given date, it represents the official production-side valuation information that we use during the UAT2 validation process.
+In summary, this tab contains the key valuation and performance measures from Summit and forms the foundation of the comparison against the corresponding Murex data. Together with the Murex Subaccount P&L and Bond Position extracts, it enables us to perform a detailed reconciliation and root-cause analysis of any differences identified."

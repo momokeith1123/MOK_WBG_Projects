@@ -1,0 +1,17 @@
+Tab 1 – Murex Mapping
+"Let's start with the first tab, which is called Murex Mapping.
+This tab is one of the most important inputs in the reconciliation process because it provides the link between the identifiers used in Murex and those used in Summit.
+As you know, the two systems use different trade identifiers, so before we can compare data coming from Summit and Murex, we first need a reliable mapping between the two.
+There are two key columns in this file:
+
+Trade Number, which corresponds to the Murex trade identifier.
+OBJ_ALT, which corresponds to the Summit trade identifier.
+
+Throughout the reconciliation process, these two fields are used as the primary keys to connect the data extracted from both platforms.
+Without this mapping, it would not be possible to perform trade-level comparisons between Summit and Murex.
+Now, regarding the source of this file, it is generated directly from Murex.
+To obtain it, we navigate to:
+Processing → Trades → Trade Query
+From there, we run the appropriate query and extract the mapping dataset containing both the Murex Trade Number and the Summit OBJ_ALT identifier.
+This file then becomes a reference file that is used by all subsequent reconciliation tabs. Any trade-level reconciliation performed later in the workbook relies on this mapping to ensure that we are comparing the same transaction in both systems.
+So, in summary, the purpose of this tab is simple: it establishes the bridge between Murex and Summit and enables all downstream reconciliation activities."

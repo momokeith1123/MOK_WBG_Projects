@@ -1,0 +1,31 @@
+Tab 4 – Murex Bond Position
+"Let's now move to the next tab, called Murex Bond Position.
+This tab provides additional security-level information that is extremely useful when investigating reconciliation differences between Summit and Murex.
+While the previous tab gives us the market value and P&L information, this tab helps us understand the underlying drivers of those numbers.
+For each position, the file contains several important attributes, including:
+
+Trade Number,
+ISIN,
+Security Price,
+Notional,
+And other position-related information.
+
+The reason this tab is so important is that, whenever we identify a market value discrepancy between Summit and Murex, our objective is not only to quantify the difference, but also to explain it.
+As you know, for fixed-income securities, Market Value is generally driven by three main components:
+Market Value = (Price + Accrued Interest) × Notional
+Therefore, when we observe a difference between Summit and Murex, we need to determine which component is responsible for the discrepancy.
+For example:
+
+Is the price different between the two systems?
+Is the accrued interest calculated differently?
+Is the notional inconsistent?
+Or is the difference coming from a combination of these factors?
+
+This tab provides the information required to perform that analysis.
+Using the Trade Number and ISIN, we can align the positions between systems and then compare each valuation component individually. This allows us to move beyond simply identifying differences and helps us understand their root cause.
+In practice, many of the exceptions we have investigated were eventually explained by differences in pricing sources, accrued interest calculations, settlement treatment, or position quantities. This tab gives us the transparency needed to perform that level of analysis.
+So, in summary, the Murex Bond Position tab is our diagnostic layer. Whenever we find a reconciliation break, this is one of the first places we go to understand whether the discrepancy originates from the price, accrual, notional, or another valuation component."
+
+Transition
+
+"Now that we have both the market value information and the detailed position attributes, we can move to the next tab, where we start comparing the Murex and Summit values and analyzing the reconciliation results."
