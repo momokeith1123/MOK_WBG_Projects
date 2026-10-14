@@ -1,0 +1,41 @@
+USD — Yield Curve UP (prices down)
+"US Treasury yields rose across the curve. Prices declined in line with rate movement."
+
+USD — Yield Curve DOWN (prices up)
+"US Treasury yields fell across the curve. Prices rose in line with rate movement."
+
+USD — Yield Curve STABLE (prices unchanged)
+"US Treasury yields were broadly stable. Prices unchanged."
+
+EUR — Curve UP
+"EUR benchmark yields moved higher. Prices declined consistent with rate movement."
+
+EUR — Curve DOWN
+"EUR benchmark yields moved lower. Prices rose consistent with rate movement."
+
+CAD — Curve UP
+"Canadian government yields rose. Prices declined in line with benchmark movement."
+
+CAD — Curve DOWN
+"Canadian government yields fell. Prices rose in line with benchmark movement."
+
+GBP — Curve UP
+"UK Gilt yields moved higher. Prices declined consistent with rate movement."
+
+GBP — Curve DOWN
+"UK Gilt yields moved lower. Prices rose consistent with rate movement."
+
+MBS (USD) — Curve UP
+"US Treasury yields rose. MBS prices declined, partially offset by negative convexity."
+
+MBS (USD) — Curve DOWN
+"US Treasury yields fell. MBS price gains were limited by prepayment risk (negative convexity)."
+
+ABS (USD)
+"Short-end US rates moved [higher/lower]. ABS prices adjusted in line with WAL-equivalent benchmark."
+
+Manual / BRL
+"Manually priced. No market benchmark reference. Price reviewed and validated by pricing team."
+
+Vendor DIFF Flag
+"Vendor price discrepancy identified. Under review — pending challenge resolution."

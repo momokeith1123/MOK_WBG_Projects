@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # CONFIGURATION
 # ─────────────────────────────────────────────
 
-BASE_OUTPUT_DIR = Path(r"C:\Users\mkeita9\Projects")
+BASE_OUTPUT_DIR = Path(r"C:\Users\mkeita9\Projects\ICE")
 
 ICE_SUBFOLDER = "14.ICE"  # Subfolder inside Inbox
 
@@ -19,12 +19,13 @@ FOLDER_MAP = {
 
 # Order matters: most specific pattern first
 ATTACHMENT_PATTERNS = [
-    ("IFC_RebalancingProjected", re.compile(r"^IFC_RebalancingProjected_\d{8}", re.IGNORECASE)),
-    ("IFC_Rebalancing",          re.compile(r"^IFC_Rebalancing_\d{8}", re.IGNORECASE)),
-    ("IFC_Daily_Price",          re.compile(r"^IFC_Daily_Price_\d{8}", re.IGNORECASE)),
+    ("IFC_RebalancingProjected", re.compile(r"^IFC_RebalancingProjected_(\d{8})", re.IGNORECASE)),
+    ("IFC_Rebalancing",          re.compile(r"^IFC_Rebalancing_(\d{8})", re.IGNORECASE)),
+    ("IFC_Daily_Price",          re.compile(r"^IFC_Daily_Price_(\d{8})", re.IGNORECASE)),
 ]
 
-SCAN_LAST_N_DAYS = 90
+# Fallback: how many days back to scan if a folder is empty
+FALLBACK_DAYS = 90
 
 
 # ─────────────────────────────────────────────
@@ -37,11 +38,41 @@ def create_output_folders():
         print(f"[+] Folder ready: {folder_path}")
 
 
-def classify_attachment(filename: str) -> str | None:
+def classify_attachment(filename: str):
+    """
+    Return (folder_key, date) for a matching filename, or (None, None) if unrecognised.
+    The date is parsed from the YYYYMMDD part of the filename.
+    """
     for key, pattern in ATTACHMENT_PATTERNS:
-        if pattern.match(filename):
-            return key
-    return None
+        match = pattern.match(filename)
+        if match:
+            date_str = match.group(1)
+            file_date = datetime.strptime(date_str, "%Y%m%d")
+            return key, file_date
+    return None, None
+
+
+def get_last_downloaded_date(folder_key: str) -> datetime:
+    """
+    Scan the destination folder for existing files and return the date
+    of the most recently downloaded file. Falls back to FALLBACK_DAYS
+    ago if the folder is empty.
+    """
+    folder_path = FOLDER_MAP[folder_key]
+    latest_date = None
+
+    for file in folder_path.iterdir():
+        _, file_date = classify_attachment(file.name)
+        if file_date and (latest_date is None or file_date > latest_date):
+            latest_date = file_date
+
+    if latest_date:
+        print(f"    Last file in {folder_key}: {latest_date.strftime('%Y-%m-%d')} — scanning from that date.")
+        return latest_date
+    else:
+        fallback = datetime.now() - timedelta(days=FALLBACK_DAYS)
+        print(f"    No files found in {folder_key} — falling back to {FALLBACK_DAYS} days ago ({fallback.strftime('%Y-%m-%d')}).")
+        return fallback
 
 
 def get_ice_folder():
@@ -70,18 +101,23 @@ def scan_and_download(ice_folder, overwrite: bool = False):
     skipped_count   = 0
     unmatched_count = 0
 
+    # Determine the cutoff date per folder based on existing files
+    print("\n[*] Checking last downloaded dates per folder...")
+    cutoff_per_folder = {key: get_last_downloaded_date(key) for key in FOLDER_MAP}
+
+    # Overall earliest cutoff to limit how far back we scan emails
+    overall_cutoff = min(cutoff_per_folder.values())
+    print(f"\n[*] Scanning emails from {overall_cutoff.strftime('%Y-%m-%d')} onwards...\n")
+
     messages = ice_folder.Items
     messages.Sort("[ReceivedTime]", True)  # Most recent first
-
-    cutoff = datetime.now() - timedelta(days=SCAN_LAST_N_DAYS)
-    print(f"\n[*] Scanning emails since {cutoff.strftime('%Y-%m-%d')}...\n")
 
     for message in messages:
         try:
             received = getattr(message, "ReceivedTime", None)
 
-            # Stop once emails go past the cutoff (sorted newest first)
-            if received and received.replace(tzinfo=None) < cutoff:
+            # Stop once emails go past the overall cutoff
+            if received and received.replace(tzinfo=None) < overall_cutoff:
                 break
 
             subject  = getattr(message, "Subject", "(no subject)")
@@ -96,11 +132,17 @@ def scan_and_download(ice_folder, overwrite: bool = False):
             for i in range(1, attachments.Count + 1):
                 attachment = attachments.Item(i)
                 filename   = attachment.FileName
-                folder_key = classify_attachment(filename)
+                folder_key, file_date = classify_attachment(filename)
 
                 if folder_key is None:
                     print(f"    [UNMATCHED] {filename}")
                     unmatched_count += 1
+                    continue
+
+                # Skip if this file's date is on or before the last downloaded date
+                if not overwrite and file_date <= cutoff_per_folder[folder_key]:
+                    print(f"    [SKIP] Already covered: {filename}")
+                    skipped_count += 1
                     continue
 
                 destination = FOLDER_MAP[folder_key]
@@ -122,7 +164,7 @@ def scan_and_download(ice_folder, overwrite: bool = False):
     print(f"\n{'─' * 55}")
     print(f"  Done.")
     print(f"  Saved   : {saved_count} file(s)")
-    print(f"  Skipped : {skipped_count} file(s) (already on disk)")
+    print(f"  Skipped : {skipped_count} file(s)")
     print(f"  Ignored : {unmatched_count} unmatched attachment(s)")
     print(f"{'─' * 55}\n")
 

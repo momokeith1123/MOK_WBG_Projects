@@ -1,0 +1,49 @@
+Vendors files
+	1. Bloomberg : bloomberg_prices.YYYYMMDD
+	2. ICE : idc_prices.YYYYMMDD
+	3. IDC : idc_prices.YYYYMMDD
+
+Commercial paper are manually priced, until ICE cover thems
+
+WB files are the files containing the securities not covered by the vendors
+
+
+DAILY PRICING CHECKLIST
+
+PREP
+[ ] Open PRS
+[ ] Open today's working paper
+[ ] Prepare/clear review templates
+
+INPUTS
+[ ] Bloomberg/BVAL received : bloomberg_prices.YYYYMMDD
+[ ] Pricing Direct received : bear_prices.YYYYMMDD ( combinaison of bear_prices_abs and bear_prices_mbs) 
+[ ] IDC/ICE received        : worldb.idc.YYYMMDD ( the file  idc_prices.YYYYMMDD has just been renamed)
+[ ] Manual prices prepared  : 
+[ ] Vendor files/counts look reasonable
+
+PRS
+[ ] 1. Load Vendor Feeds
+[ ] Check load
+[ ] 2. Load Upstream Files & Assemble Prices
+[ ] 3. Generate Reports
+
+PRICE REVIEW
+[ ] Not Priced checked
+[ ] New Securities checked
+[ ] Price Variance checked
+[ ] No Variance checked
+[ ] Zero/blank prices checked
+[ ] Data errors checked
+[ ] Exceptions investigated
+[ ] Comments/evidence captured
+
+FINAL CONTROL
+[ ] No unexplained material exception
+[ ] Working paper updated
+[ ] Review complete
+
+EOD
+[ ] 4. Generate Prices Back to Upstream
+[ ] Job completed
+[ ] Output confirmed

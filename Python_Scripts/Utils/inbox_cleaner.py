@@ -1,64 +1,48 @@
 import win32com.client
 
-TARGET_FOLDER_NAME = "FY2026"
-ACCOUNT_INDEX = 1  # mkeita9@ifc.org
-
-def main():
-    print("=" * 60)
-    print("  Inbox Cleaner — Move emails to folder '2026'")
-    print("=" * 60)
-
-    # 1. Connexion au bon compte
-    print("\n[1/3] Connexion à Outlook...")
+def move_inbox_to_fy2027():
+    # Connect to the running Outlook instance
     outlook = win32com.client.Dispatch("Outlook.Application")
     namespace = outlook.GetNamespace("MAPI")
 
-    store = namespace.Stores[ACCOUNT_INDEX]
-    inbox = store.GetDefaultFolder(6)
-    print(f"      Compte   : {store.DisplayName}")
-    print(f"      Inbox    : {inbox.Items.Count} élément(s)")
+    # Get the default Inbox folder
+    inbox = namespace.GetDefaultFolder(6)  # 6 = olFolderInbox
 
-    # 2. Création du dossier "2026" si inexistant
-    print(f"\n[2/3] Vérification/création du dossier '{TARGET_FOLDER_NAME}'...")
-    target_folder = None
+    # Locate FY2027 as a subfolder of Inbox, or create it
+    fy2027_folder = None
     for folder in inbox.Folders:
-        if folder.Name == TARGET_FOLDER_NAME:
-            target_folder = folder
-            print(f"      Dossier '{TARGET_FOLDER_NAME}' déjà existant.")
+        if folder.Name == "FY2027":
+            fy2027_folder = folder
             break
 
-    if target_folder is None:
-        target_folder = inbox.Folders.Add(TARGET_FOLDER_NAME)
-        print(f"      Dossier '{TARGET_FOLDER_NAME}' créé avec succès.")
+    if fy2027_folder is None:
+        print("Folder 'FY2027' not found. Creating it now inside Inbox...")
+        fy2027_folder = inbox.Folders.Add("FY2027")
+        print("Folder 'FY2027' created successfully.")
+    else:
+        print("Folder 'FY2027' found.")
 
-    # 3. Déplacement des emails (à l'envers pour éviter les décalages d'index)
-    print(f"\n[3/3] Déplacement des emails vers '{TARGET_FOLDER_NAME}'...")
+    # Get items directly in Inbox (not subfolders)
+    messages = inbox.Items
+    total = messages.Count
+    print(f"Found {total} item(s) in Inbox. Starting to move...")
 
-    total = 0
-    errors = 0
-    items = inbox.Items
-    count = items.Count
+    moved = 0
+    failed = 0
 
-    for i in range(count, 0, -1):
+    # Iterate in reverse order (safest when moving items from a live collection)
+    for i in range(total, 0, -1):
         try:
-            item = items[i]
-            item.Move(target_folder)
-            total += 1
-            if total % 50 == 0:
-                print(f"      {total} emails déplacés...")
+            item = messages.Item(i)
+            subject = item.Subject if hasattr(item, "Subject") else "[No Subject]"
+            item.Move(fy2027_folder)
+            moved += 1
+            print(f"  Moved ({moved}/{total}): {subject}")
         except Exception as e:
-            print(f"      [ERREUR] Item #{i} : {e}")
-            errors += 1
-            continue
+            failed += 1
+            print(f"  FAILED to move item {i}: {e}")
 
-    print("\n" + "=" * 60)
-    print("  RÉSUMÉ")
-    print("=" * 60)
-    print(f"  Compte cible                : {store.DisplayName}")
-    print(f"  Emails déplacés avec succès : {total}")
-    print(f"  Erreurs                     : {errors}")
-    print(f"  Destination                 : Inbox > {TARGET_FOLDER_NAME}")
-    print("=" * 60)
+    print(f"\nDone. Moved: {moved} | Failed: {failed}")
 
 if __name__ == "__main__":
-    main()
+    move_inbox_to_fy2027()
